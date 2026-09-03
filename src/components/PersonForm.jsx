@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
+
 const CREATE_PERSON = gql`
   mutation createPerson(
     $name: String!
@@ -19,6 +20,7 @@ const CREATE_PERSON = gql`
     }
   }
 `
+
 function PersonForm () {
   const [name, setName]=useState('')
   const [phone,setPhone]=useState('')
@@ -30,7 +32,11 @@ function PersonForm () {
   const submit = (event) => {
     event.preventDefault()
 
-    createPerson({ variables: { name, phone, street, city } })
+    createPerson({ variables: { 
+      name, 
+      phone, 
+      street, 
+      city } })
 
     setName('')
     setPhone('')
