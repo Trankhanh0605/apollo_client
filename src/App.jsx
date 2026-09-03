@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client/react";
-import { ALL_PERSONS } from "./queries";
 import { useState } from "react";
+
+import { ALL_PERSONS } from "./queries";
 
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
