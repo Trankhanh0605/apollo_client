@@ -7,9 +7,11 @@ import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Notify from "./components/Notify";
 import PhoneForm from "./components/PhoneForm";
+import LoginForm from "./components/LoginForm";
 
 const App=()=>{
   const [errorMessage, setErrorMessage]=useState(null); 
+  const [token, setToken]=useState(localStorage.getItem('phonebook-user-token'))
   
   const result=useQuery(ALL_PERSONS)
   if (result.loading) {
@@ -21,6 +23,20 @@ const App=()=>{
     setTimeout(() => {
       setErrorMessage(null)
     }, 10000)
+  }
+
+  // if token is null, show the login form to log in
+  if (!token) {
+    return (
+      <div>
+        <Notify errorMessage={errorMessage} />
+        <h2>Login</h2>
+        <LoginForm
+        setError={notify}
+        setToken={setToken}
+        />
+      </div>
+    );
   }
 
   return (
