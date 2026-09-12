@@ -44,6 +44,7 @@ const LoginForm=({setError, setToken}) =>{
           />
           password
         </div>
+        <button type='submit'>login</button>
       </form>
     </div>
   );
