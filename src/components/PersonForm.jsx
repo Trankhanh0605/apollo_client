@@ -2,25 +2,28 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { ALL_PERSONS, CREATE_PERSON } from "../queries";
 
-function PersonForm ({setError}) {
-  const [name, setName]=useState('')
-  const [phone,setPhone]=useState('')
-  const [street, setStreet]=useState('')
-  const [city, setCity]=useState('')
+function PersonForm({ setError }) {
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
 
-  const [createPerson]=useMutation(CREATE_PERSON, {
-    refetchQueries: [{query: ALL_PERSONS}],
-    onError: (error)=>setError(error.message) 
+  const [createPerson] = useMutation(CREATE_PERSON, {
+    refetchQueries: [{ query: ALL_PERSONS }],
+    onError: (error) => setError(error.message)
   })
 
   const submit = (event) => {
     event.preventDefault()
 
-    createPerson({ variables: { 
-      name, 
-      phone, 
-      street, 
-      city } })
+    createPerson({
+      variables: {
+        name,
+        phone: phone.length > 0 ? phone : undefined,
+        street,
+        city
+      }
+    })
 
     setName('')
     setPhone('')
