@@ -34,17 +34,15 @@ const LoginForm=({setError, setToken}) =>{
           <input 
           value={username}
           onChange={({target})=>setUsername(target.value)}
-          >
+          />
           username
-          </input>
         </div>
         <div>
           <input
           value={password}
           onChange={({target})=>setPassword(target.value)}
-          >
+          />
           password
-          </input>
         </div>
       </form>
     </div>

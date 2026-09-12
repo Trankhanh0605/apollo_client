@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client/react";
+import { useApolloClient, useQuery } from "@apollo/client/react";
 import { useState } from "react";
 
 import { ALL_PERSONS } from "./queries";
@@ -14,6 +14,7 @@ const App=()=>{
   const [token, setToken]=useState(localStorage.getItem('phonebook-user-token'))
   
   const result=useQuery(ALL_PERSONS)
+  const client=useApolloClient()
   if (result.loading) {
     return <div>loading...</div>
   }
@@ -39,9 +40,16 @@ const App=()=>{
     );
   }
 
+  const onLogOut=()=>{
+    setToken(null)
+    localStorage.clear()
+    client.resetStore()
+  }
+
   return (
     <div>
       <Notify errorMessage={errorMessage} />
+      <button onClick={onLogOut}>Log out</button>
       <Persons persons={result.data.allPersons} />
       <PersonForm setError={notify} />
       <PhoneForm setError={notify} />
