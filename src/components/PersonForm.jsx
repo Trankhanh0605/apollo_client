@@ -9,8 +9,14 @@ function PersonForm({ setError }) {
   const [city, setCity] = useState('')
 
   const [createPerson] = useMutation(CREATE_PERSON, {
-    refetchQueries: [{ query: ALL_PERSONS }],
-    onError: (error) => setError(error.message)
+    onError: (error) => setError(error.message),
+    update: (cache, response) => {
+      cache.updateQuery({ query: ALL_PERSONS }, ({ allPersons }) => {
+        return {
+          allPersons: allPersons.concat(response.data.addPerson),
+        }
+      })
+    },
   })
 
   const submit = (event) => {
